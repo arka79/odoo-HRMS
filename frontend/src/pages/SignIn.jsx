@@ -27,19 +27,27 @@ const SignIn = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4 sm:p-6 lg:p-8">
       <div className="max-w-md w-full card">
-        <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-100 text-indigo-600 mb-4 shadow-inner">
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+          </div>
+          <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Welcome Back</h2>
+          <p className="mt-2 text-sm text-slate-500">Sign in to access your HR workspace</p>
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
-            <input className="input-field" type="email" value={email} onChange={e => setEmail(e.target.value)} required />
+            <label className="label-text">Email Address</label>
+            <input className="input-field" type="email" placeholder="you@company.com" value={email} onChange={e => setEmail(e.target.value)} required />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Password</label>
-            <input className="input-field" type="password" value={password} onChange={e => setPassword(e.target.value)} required />
+            <label className="label-text">Password</label>
+            <input className="input-field" type="password" placeholder="••••••••" value={password} onChange={e => setPassword(e.target.value)} required />
           </div>
-          <button className="btn-primary w-full mt-4">Login</button>
+          <div className="pt-2">
+            <button className="btn-primary w-full">Sign In to Dashboard</button>
+          </div>
         </form>
       </div>
     </div>
