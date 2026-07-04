@@ -34,7 +34,7 @@ exports.updateProfile = async (req, res) => {
     const userRes = await db.query('SELECT id FROM users WHERE id = $1 AND company_id = $2', [userId, companyId]);
     if (userRes.rowCount === 0) return res.status(404).json({ error: 'User not found' });
 
-    if (requesterId !== userId && role !== 'Admin') {
+    if (requesterId != userId && role !== 'Admin') {
       return res.status(403).json({ error: 'Unauthorized' });
     }
 
@@ -58,12 +58,15 @@ exports.updateProfile = async (req, res) => {
 };
 
 exports.updateAvatar = async (req, res) => {
-  if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
   const { userId } = req.params;
+  const companyId = req.user.company_id;
+  
   try {
-    await db.query('UPDATE users SET profile_pic = $1 WHERE id = $2', [req.file.path, userId]);
-    res.json({ profile_pic: req.file.path });
+    const randomAvatar = `https://api.dicebear.com/7.x/avataaars/svg?seed=${userId}`;
+    await db.query('UPDATE users SET profile_pic = $1 WHERE id = $2 AND company_id = $3', [randomAvatar, userId, companyId]);
+    res.json({ profile_pic: randomAvatar });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: 'Internal server error' });
   }
 };

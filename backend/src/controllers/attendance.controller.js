@@ -3,14 +3,15 @@ const { verifyToken } = require('../middleware/auth');
 
 exports.checkIn = async (req, res) => {
   const userId = req.user.id;
-  const today = new Date().toISOString().split('T')[0];
+  const now = new Date();
+  const today = now.toISOString().split('T')[0];
 
   try {
     const existing = await db.query('SELECT id FROM attendance WHERE user_id = $1 AND date = $2', [userId, today]);
     if (existing.rowCount > 0) return res.status(400).json({ error: 'Already checked in today' });
 
-    await db.query('INSERT INTO attendance (user_id, date, check_in, status) VALUES ($1, $2, NOW(), $3)', [userId, today, 'Present']);
-    res.json({ message: 'Checked in successfully' });
+    await db.query('INSERT INTO attendance (user_id, date, check_in, status) VALUES ($1, $2, $3, $4)', [userId, today, now, 'Present']);
+    res.json({ message: 'Checked in successfully', check_in: now });
   } catch (err) {
     res.status(500).json({ error: 'Internal server error' });
   }

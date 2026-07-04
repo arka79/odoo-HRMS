@@ -3,10 +3,10 @@ const path = require('path');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    if (file.fieldname === 'logo') return cb(null, 'uploads/logos/');
-    if (file.fieldname === 'avatar') return cb(null, 'uploads/avatars/');
-    if (file.fieldname === 'attachment') return cb(null, 'uploads/leave-certs/');
-    cb(null, 'uploads/');
+    if (file.fieldname === 'logo') return cb(null, path.join('uploads', 'logos'));
+    if (file.fieldname === 'avatar') return cb(null, path.join('uploads', 'avatars'));
+    if (file.fieldname === 'attachment') return cb(null, path.join('uploads', 'leave-certs'));
+    cb(null, 'uploads');
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
