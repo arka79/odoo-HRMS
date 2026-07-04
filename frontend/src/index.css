@@ -2,14 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    @apply text-slate-800 antialiased bg-slate-50 selection:bg-indigo-100 selection:text-indigo-900;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
 @layer components {
   .btn-primary {
-    @apply px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors font-medium;
+    @apply px-5 py-2.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 active:bg-indigo-800 shadow-sm shadow-indigo-200 hover:shadow-md hover:shadow-indigo-300 transition-all duration-200 font-semibold flex items-center justify-center gap-2;
+  }
+  .btn-secondary {
+    @apply px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-lg hover:bg-slate-50 hover:border-slate-300 hover:shadow-sm transition-all duration-200 font-semibold flex items-center justify-center gap-2;
   }
   .input-field {
-    @apply w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none;
+    @apply w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg focus:ring-4 focus:ring-indigo-50 focus:border-indigo-500 outline-none transition-all duration-200 text-sm placeholder:text-slate-400 text-slate-700;
   }
   .card {
-    @apply bg-white p-6 rounded-lg shadow-sm border border-gray-200;
+    @apply bg-white p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300;
+  }
+  .label-text {
+    @apply block text-sm font-semibold text-slate-600 mb-1.5;
   }
 }

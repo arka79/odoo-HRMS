@@ -8,41 +8,41 @@ const TopNav = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="flex items-center justify-between px-6 py-3 bg-white border-b border-gray-200 shadow-sm">
-      <div className="flex items-center gap-4">
-        <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
+    <nav className="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3.5 bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-slate-200 shadow-sm">
+      <div className="flex items-center gap-4 cursor-pointer" onClick={() => navigate(user?.role === 'Admin' ? '/admin/employees' : '/dashboard')}>
+        <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-inner shadow-indigo-300">
           {user?.company_id ? 'HR' : 'H'}
         </div>
-        <span className="text-xl font-bold text-gray-800">HRMS Portal</span>
+        <span className="text-xl font-extrabold text-slate-900 tracking-tight hidden sm:block">HRMS Portal</span>
       </div>
       
-      <div className="flex items-center gap-6">
-        <div className="hidden md:flex items-center gap-4 text-sm font-medium text-gray-600">
-          <button onClick={() => navigate(user?.role === 'Admin' ? '/admin/employees' : '/dashboard')} className="flex items-center gap-1 hover:text-blue-600">
+      <div className="flex items-center gap-4 sm:gap-6">
+        <div className="hidden md:flex items-center gap-1 text-sm font-semibold text-slate-600">
+          <button onClick={() => navigate(user?.role === 'Admin' ? '/admin/employees' : '/dashboard')} className="flex items-center gap-1.5 px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-indigo-600 transition-colors">
             <LayoutDashboard size={18} /> Dashboard
           </button>
-          <button onClick={() => navigate('/attendance')} className="flex items-center gap-1 hover:text-blue-600">
+          <button onClick={() => navigate('/attendance')} className="flex items-center gap-1.5 px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-indigo-600 transition-colors">
             <Clock size={18} /> Attendance
           </button>
-          <button onClick={() => navigate('/leave')} className="flex items-center gap-1 hover:text-blue-600">
+          <button onClick={() => navigate('/leave')} className="flex items-center gap-1.5 px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-indigo-600 transition-colors">
             <Calendar size={18} /> Time Off
           </button>
         </div>
         
-        <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
+        <div className="flex items-center gap-3 pl-2 sm:pl-4 md:border-l border-slate-200">
           <div className="text-right hidden sm:block">
-            <p className="text-xs text-gray-500">{user?.role}</p>
-            <p className="text-sm font-bold text-gray-800">{user?.full_name}</p>
+            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">{user?.role}</p>
+            <p className="text-sm font-bold text-slate-900">{user?.full_name}</p>
           </div>
           <div className="relative group">
-            <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden cursor-pointer border-2 border-white shadow-sm">
-              <UserCircle className="w-full h-full text-gray-400" />
+            <div className="w-10 h-10 rounded-full bg-slate-100 overflow-hidden cursor-pointer border-2 border-white shadow-sm ring-2 ring-transparent group-hover:ring-indigo-100 transition-all">
+              <UserCircle className="w-full h-full text-slate-400" />
             </div>
-            <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 py-2 hidden group-hover:block z-50">
-              <button onClick={() => navigate('/profile/me')} className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2">
+            <div className="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-xl border border-slate-100 py-2 hidden group-hover:block z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+              <button onClick={() => navigate('/profile/me')} className="w-full px-4 py-2 text-left text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-indigo-600 flex items-center gap-2 transition-colors">
                 <UserCircle size={16} /> My Profile
               </button>
-              <button onClick={logout} className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2">
+              <button onClick={logout} className="w-full px-4 py-2 text-left text-sm font-medium text-rose-600 hover:bg-rose-50 flex items-center gap-2 transition-colors">
                 <LogOut size={16} /> Logout
               </button>
             </div>

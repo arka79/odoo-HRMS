@@ -49,27 +49,27 @@ const AttendancePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-50">
       <TopNav />
-      <div className="p-8 max-w-5xl mx-auto">
-        <div className="card flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
+      <div className="p-6 md:p-8 lg:p-10 max-w-6xl mx-auto space-y-8">
+        <div className="card flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-gradient-to-r from-white to-slate-50">
           <div>
-            <h1 className="text-2xl font-bold text-gray-800">My Attendance</h1>
-            <p className="text-gray-500">Manage your daily clock-in and out</p>
+            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">My Attendance</h1>
+            <p className="text-slate-500 mt-1">Manage your daily clock-in and out records</p>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 w-full md:w-auto">
             {status === 'idle' && (
-              <button onClick={handleCheckIn} className="btn-primary flex items-center gap-2 px-6 py-3">
+              <button onClick={handleCheckIn} className="btn-primary w-full md:w-auto px-8 py-3 shadow-indigo-200/50">
                 <Clock size={20} /> Check In Now
               </button>
             )}
             {status === 'checked-in' && (
-              <button onClick={handleCheckOut} className="btn-primary bg-orange-600 hover:bg-orange-700 flex items-center gap-2 px-6 py-3">
+              <button onClick={handleCheckOut} className="w-full md:w-auto px-8 py-3 bg-amber-500 text-white rounded-lg hover:bg-amber-600 active:bg-amber-700 shadow-sm shadow-amber-200 hover:shadow-md transition-all font-semibold flex items-center justify-center gap-2">
                 <Clock size={20} /> Check Out Now
               </button>
             )}
             {status === 'checked-out' && (
-              <div className="px-6 py-3 bg-green-100 text-green-700 rounded-lg font-medium flex items-center gap-2">
+              <div className="w-full md:w-auto px-8 py-3 bg-emerald-100/50 text-emerald-700 rounded-lg font-bold flex items-center justify-center gap-2 border border-emerald-200">
                 <CheckCircle size={20} /> Day Completed
               </div>
             )}
@@ -77,11 +77,13 @@ const AttendancePage = () => {
         </div>
 
         <div className="card">
-          <h2 className="text-lg font-bold mb-4">Monthly Log</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b text-gray-400 text-xs uppercase font-bold">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-bold text-slate-900">Monthly Log</h2>
+          </div>
+          <div className="overflow-x-auto rounded-lg border border-slate-200">
+            <table className="w-full text-left border-collapse bg-white">
+              <thead className="bg-slate-50">
+                <tr className="border-b border-slate-200 text-slate-500 text-xs uppercase tracking-wider font-bold">
                   <th className="py-3 px-4">Date</th>
                   <th className="py-3 px-4">Check In</th>
                   <th className="py-3 px-4">Check Out</th>
@@ -89,15 +91,15 @@ const AttendancePage = () => {
                   <th className="py-3 px-4">Status</th>
                 </tr>
               </thead>
-              <tbody className="text-sm text-gray-600">
+              <tbody className="text-sm text-slate-700 divide-y divide-slate-100">
                 {records.map((rec, i) => (
-                  <tr key={i} className="border-b hover:bg-gray-50">
-                    <td className="py-3 px-4 font-medium">{rec.date}</td>
-                    <td className="py-3 px-4">{rec.check_in ? new Date(rec.check_in).toLocaleTimeString() : '-'}</td>
-                    <td className="py-3 px-4">{rec.check_out ? new Date(rec.check_out).toLocaleTimeString() : '-'}</td>
-                    <td className="py-3 px-4 font-bold">{rec.work_hours}h</td>
-                    <td className="py-3 px-4">
-                      <span className={`px-2 py-1 rounded-full text-xs ${rec.status === 'Present' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                  <tr key={i} className="hover:bg-slate-50 transition-colors">
+                    <td className="py-4 px-4 font-semibold text-slate-900">{rec.date}</td>
+                    <td className="py-4 px-4">{rec.check_in ? new Date(rec.check_in).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '-'}</td>
+                    <td className="py-4 px-4">{rec.check_out ? new Date(rec.check_out).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '-'}</td>
+                    <td className="py-4 px-4 font-bold text-slate-900">{rec.work_hours ? parseFloat(rec.work_hours).toFixed(1) + 'h' : '-'}</td>
+                    <td className="py-4 px-4">
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${rec.status === 'Present' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>
                         {rec.status}
                       </span>
                     </td>
